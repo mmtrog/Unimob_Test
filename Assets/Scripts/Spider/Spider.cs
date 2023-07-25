@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -16,6 +15,8 @@ public class Spider : MonoBehaviour
     public bool up, down, left, right;
 
     public ContactFilter2D contactFilter2D;
+
+    private Direction priorityDirection;
     
     private enum Direction
     {
@@ -58,25 +59,128 @@ public class Spider : MonoBehaviour
             case Direction.Up:
                 if (!this.up)
                 {
-                    this.ChangeDir(!this.right ? Direction.Left : Direction.Right);
+                    if (this.left && this.right)
+                    {
+                        if (this.priorityDirection is Direction.Left)
+                        {
+                            ChangeDir(this.priorityDirection);
+                        }
+                        else
+                        {
+                            ChangeDir(Direction.Right);     
+                        }
+                    }
+                    else
+                    {
+                        if (!this.left)
+                        {
+                            ChangeDir(Direction.Right);
+                            if (!this.right)
+                            {
+                                ChangeDir(Direction.Down);      
+                            }
+                        }
+                        else if(!this.right)
+                        {
+                            ChangeDir(Direction.Left);      
+                        }
+                    }
                 }
                 break;
             case Direction.Down:
                 if (!this.down)
                 {
-                    this.ChangeDir(!this.right ? Direction.Left : Direction.Right);
+                    if (this.left && this.right)
+                    {
+                        if (this.priorityDirection is Direction.Left)
+                        {
+                            ChangeDir(this.priorityDirection);
+                        }
+                        else
+                        {
+                            ChangeDir(Direction.Right);     
+                        }
+                    }
+                    else
+                    {
+                        if (!this.left)
+                        {
+                            ChangeDir(Direction.Right);
+                            
+                            if (!this.right)
+                            {
+                                ChangeDir(Direction.Up);      
+                            }
+                        }
+                        else
+                        {
+                            ChangeDir(Direction.Left);      
+                        }
+                    }
                 }
                 break;
             case Direction.Right:
                 if (!this.right)
                 {
-                    this.ChangeDir(!this.up ? Direction.Down : Direction.Up);
+                    if (this.up && this.down)
+                    {
+                        if (this.priorityDirection is Direction.Down)
+                        {
+                            ChangeDir(this.priorityDirection);
+                        }
+                        else
+                        {
+                            ChangeDir(Direction.Up);
+                        }
+                    }
+                    else
+                    {
+                        if (!this.up)
+                        {
+                            ChangeDir(Direction.Down);  
+                            
+                            if(!this.down)
+                            {
+                                ChangeDir(Direction.Left);     
+                            }
+                        }
+                        else 
+                        {
+                            ChangeDir(Direction.Up);      
+                        }
+                    }
                 }
                 break;
             case Direction.Left:
                 if (!this.left)
                 {
-                    this.ChangeDir(!this.up ? Direction.Down : Direction.Up);
+                    if (this.up && this.down)
+                    {
+                        if (this.priorityDirection is Direction.Down)
+                        {
+                            ChangeDir(this.priorityDirection);
+                        }
+                        else
+                        {
+                            ChangeDir(Direction.Up);
+                        }
+                    }
+                    else
+                    {
+                        if (!this.up)
+                        {
+                            ChangeDir(Direction.Down);
+
+                            if (!this.down)
+                            {
+                                ChangeDir(Direction.Right);   
+                            }
+                        }
+                        else 
+                        {
+                            ChangeDir(Direction.Up);      
+                        }
+                    }
                 }
                 break;
             default:
@@ -93,19 +197,47 @@ public class Spider : MonoBehaviour
 
     private void CheckObstacle()
     {
-        up    = CheckDir(this.upCol);
-        down  = CheckDir(this.downCol);
-        right = CheckDir(this.rightCol);
-        left  = CheckDir(this.leftCol);
+        switch (this.direction)
+        {
+            case Direction.Up:
+            case Direction.Down:
+                if (!this.right && this.CheckDir(this.rightCol))
+                {
+                    this.direction = Direction.Right;
+                }
+                else if (!this.left&&CheckDir(this.leftCol))
+                {
+                    this.priorityDirection = Direction.Left; 
+                }
+                break;
+            case Direction.Right:
+            case Direction.Left:
+                if (!this.up && this.CheckDir(this.upCol))
+                {
+                    this.direction = Direction.Up;
+                }
+                else if (!this.down&&CheckDir(this.downCol))
+                {
+                    this.priorityDirection = Direction.Down; 
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }    
+        
+        this.up    = this.CheckDir(this.upCol);
+        this.down  = this.CheckDir(this.downCol);
+        this.right = this.CheckDir(this.rightCol);
+        this.left  = this.CheckDir(this.leftCol);
     }
     
     private bool CheckDir(BoxCollider2D dirCol)
     {
-        Collider2D[] result = new Collider2D[1];
+        var result = new List<Collider2D>();
 
         dirCol.OverlapCollider(this.contactFilter2D, result);
         
-        if (result[0] != null)
+        if (result.Count != 0)
         {
             return false;
         }

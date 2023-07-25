@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Brown
   m_EditorClassIdentifier: 
   animator: {fileID: 22100000, guid: b51d1e7d1632b614abe65fce4a8ac358, type: 2}
-  speed: 7
+  speed: 4

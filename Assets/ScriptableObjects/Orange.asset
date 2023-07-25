@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Orange
   m_EditorClassIdentifier: 
   animator: {fileID: 22100000, guid: 1e6aeffdf38e0604b8f644df9fb148e5, type: 2}
-  speed: 6.5
+  speed: 3.5

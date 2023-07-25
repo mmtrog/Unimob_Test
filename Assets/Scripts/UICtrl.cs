@@ -21,7 +21,12 @@ public class UICtrl : MonoBehaviour
     public TextMeshProUGUI fpsText;
 
     float deltaTime = 0.0f;
-    
+
+    private void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     private void Start()
     {
         this.spawn20.onClick.AddListener(this.Spawn20Spiders);
@@ -45,8 +50,47 @@ public class UICtrl : MonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            GameObject spider = Instantiate(this.spiderPrefab, new Vector3(-8.86f,-4.48f,0.03f), new Quaternion(0,0,0,0), this.spiderPool);
-        
+
+            var temp = Random.Range(0,10);
+
+            Vector3 pos = Vector3.zero;
+            
+            switch (temp)
+            {
+                case 0:
+                    pos = new Vector3(-9.092f,-4.9f,0);
+                    break;
+                case 1:
+                    pos = new Vector3(-8.32f,-4.9f,0);
+                    break;
+                case 2:
+                    pos = new Vector3(-7.58f,-4.9f,0);
+                    break;
+                case 3:
+                    pos = new Vector3(-6.84f,-4.9f,0);
+                    break;
+                case 4:
+                    pos = new Vector3(-6.07f,-4.9f,0);
+                    break;
+                case 5:
+                    pos = new Vector3(-5.32f,-4.9f,0);
+                    break;
+                case 6:
+                    pos = new Vector3(-4.58f,-4.9f,0);
+                    break;
+                case 7:
+                    pos = new Vector3(-3.83f,-4.9f,0);
+                    break;
+                case 8:
+                    pos = new Vector3(-3.06f,-4.9f,0);
+                    break;
+                case 9:
+                    pos = new Vector3(-2.2f,-4.9f,0);
+                    break;
+            }
+            
+            GameObject spider = Instantiate(this.spiderPrefab, pos, new Quaternion(0,0,0,0), this.spiderPool);
+            
             spider.GetComponent<Spider>().SetData(data[Random.Range(0,typeAmount-1)]);  
         }
     }
@@ -59,8 +103,46 @@ public class UICtrl : MonoBehaviour
 
         for (int i = 0; i < 50; i++)
         {
-            GameObject spider = Instantiate(this.spiderPrefab, new Vector3(-8.86f,-4.48f,0.03f), new Quaternion(0,0,0,0), this.spiderPool);
-        
+            var temp = Random.Range(0,10);
+
+            Vector3 pos = Vector3.zero;
+            
+            switch (temp)
+            {
+                case 0:
+                    pos = new Vector3(-9.092f,-4.9f,0);
+                    break;
+                case 1:
+                    pos = new Vector3(-8.32f,-4.9f,0);
+                    break;
+                case 2:
+                    pos = new Vector3(-7.58f,-4.9f,0);
+                    break;
+                case 3:
+                    pos = new Vector3(-6.84f,-4.9f,0);
+                    break;
+                case 4:
+                    pos = new Vector3(-6.07f,-4.9f,0);
+                    break;
+                case 5:
+                    pos = new Vector3(-5.32f,-4.9f,0);
+                    break;
+                case 6:
+                    pos = new Vector3(-4.58f,-4.9f,0);
+                    break;
+                case 7:
+                    pos = new Vector3(-3.83f,-4.9f,0);
+                    break;
+                case 8:
+                    pos = new Vector3(-3.06f,-4.9f,0);
+                    break;
+                case 9:
+                    pos = new Vector3(-2.2f,-4.9f,0);
+                    break;
+            }
+            
+            GameObject spider = Instantiate(this.spiderPrefab, pos, new Quaternion(0,0,0,0), this.spiderPool);
+            
             spider.GetComponent<Spider>().SetData(data[Random.Range(0,typeAmount-1)]);  
         }
     }
@@ -73,7 +155,45 @@ public class UICtrl : MonoBehaviour
 
         for (int i = 0; i < 100; i++)
         {
-            GameObject spider = Instantiate(this.spiderPrefab, new Vector3(-8.86f,-4.48f,0.03f), new Quaternion(0,0,0,0), this.spiderPool);
+            var temp = Random.Range(0,10);
+
+            Vector3 pos = Vector3.zero;
+            
+            switch (temp)
+            {
+                case 0:
+                    pos = new Vector3(-9.092f,-4.9f,0);
+                    break;
+                case 1:
+                    pos = new Vector3(-8.32f,-4.9f,0);
+                    break;
+                case 2:
+                    pos = new Vector3(-7.58f,-4.9f,0);
+                    break;
+                case 3:
+                    pos = new Vector3(-6.84f,-4.9f,0);
+                    break;
+                case 4:
+                    pos = new Vector3(-6.07f,-4.9f,0);
+                    break;
+                case 5:
+                    pos = new Vector3(-5.32f,-4.9f,0);
+                    break;
+                case 6:
+                    pos = new Vector3(-4.58f,-4.9f,0);
+                    break;
+                case 7:
+                    pos = new Vector3(-3.83f,-4.9f,0);
+                    break;
+                case 8:
+                    pos = new Vector3(-3.06f,-4.9f,0);
+                    break;
+                case 9:
+                    pos = new Vector3(-2.2f,-4.9f,0);
+                    break;
+            }
+            
+            GameObject spider = Instantiate(this.spiderPrefab, pos, new Quaternion(0,0,0,0), this.spiderPool);
         
             spider.GetComponent<Spider>().SetData(data[Random.Range(0,typeAmount-1)]);  
         }
