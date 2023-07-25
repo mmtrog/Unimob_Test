@@ -36,7 +36,7 @@ public class UICtrl : MonoBehaviour
         this.spawn100.onClick.AddListener(this.Spawn100Spiders);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         UpdateFPS();
@@ -212,9 +212,8 @@ public class UICtrl : MonoBehaviour
     
     void UpdateFPS()
     {
-        float  msec = deltaTime * 1000.0f;
         float  fps  = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+        string text = string.Format("{0:0.0} fps", fps);
         fpsText.text = text;
     }
 }
