@@ -50,7 +50,7 @@ public class Spider : MonoBehaviour
         this.right                = true;
     }
     
-    private void Update()
+    private void FixedUpdate()
     {
         this.CheckObstacle();
         
@@ -59,6 +59,8 @@ public class Spider : MonoBehaviour
             case Direction.Up:
                 if (!this.up)
                 {
+                    this.rigidbody2D.velocity = Vector2.zero;
+                    
                     if (this.left && this.right)
                     {
                         if (this.priorityDirection is Direction.Left)
@@ -90,6 +92,8 @@ public class Spider : MonoBehaviour
             case Direction.Down:
                 if (!this.down)
                 {
+                    this.rigidbody2D.velocity = Vector2.zero;
+                    
                     if (this.left && this.right)
                     {
                         if (this.priorityDirection is Direction.Left)
@@ -122,6 +126,8 @@ public class Spider : MonoBehaviour
             case Direction.Right:
                 if (!this.right)
                 {
+                    this.rigidbody2D.velocity = Vector2.zero;
+                    
                     if (this.up && this.down)
                     {
                         if (this.priorityDirection is Direction.Down)
@@ -154,6 +160,8 @@ public class Spider : MonoBehaviour
             case Direction.Left:
                 if (!this.left)
                 {
+                    this.rigidbody2D.velocity = Vector2.zero;
+                    
                     if (this.up && this.down)
                     {
                         if (this.priorityDirection is Direction.Down)

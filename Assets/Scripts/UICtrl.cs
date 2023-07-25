@@ -36,7 +36,7 @@ public class UICtrl : MonoBehaviour
         this.spawn100.onClick.AddListener(this.Spawn100Spiders);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         UpdateFPS();
